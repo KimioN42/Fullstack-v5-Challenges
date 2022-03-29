@@ -1,0 +1,67 @@
+body {
+    margin: 0px;
+    font-family: Helvetica;
+    font-size: 0.85rem;
+    background-color: rgb(29, 30, 32);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+a {
+    text-decoration: none;
+}
+
+#search_icon {
+    position: absolute;
+    bottom: 11px;
+    left: 260px;
+}
+
+#mic_icon {
+    position: absolute;
+    bottom: 12px;
+    right: 280px;
+}
+
+.header-container {
+    margin: 1.2rem;
+}
+
+.header-container a {
+    color: white;
+    margin-left: 0.5rem;
+}
+
+.content {
+    margin-top: 10rem;
+    text-align: center;
+}
+
+.inputbar {
+    margin-top: 2.5rem;
+    position: relative;
+    padding: 0;
+}
+
+
+.searchbar {
+    border-radius: 2rem;
+    width: 35rem;
+    padding: 1rem;
+    padding-left: 3rem;
+    background-color: rgb(29, 30, 32);
+    border: 1px solid grey;
+}
+
+.searchbar:hover {
+    background-color: rgb(48, 49, 52);
+    border: 0;
+    box-shadow: 1px solid white;
+}
+
+
+
