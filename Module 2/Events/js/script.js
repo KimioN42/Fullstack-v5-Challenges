@@ -34,7 +34,7 @@ const App = {
         }
 
     },
-    //functions that can be called
+    //functions
     controllers: {
         setTable() {
             const els = App.elements;
@@ -56,7 +56,6 @@ const App = {
                     if (App.controllers.checkWinner()) {
                         els.gameResult.innerHTML = "Player " + App.state.getters.getWinner() + " won!";
                         disableTable();
-                        disableTable();
                     }
                 }
                 td[i].innerHTML = "";
@@ -67,7 +66,7 @@ const App = {
                 td[i].addEventListener("click", userClick);
 
             }
-
+            //why is this not working????
             function disableTable() {
                 for (let i = 0; i < td.length; i++) {
                     console.log("disabling table element ", i);
