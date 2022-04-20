@@ -33,10 +33,27 @@ const App = {
     },
     //functions
     controllers: {
-        setEventHandlers(td) {
+        setTable() {
             const els = App.elements;
+
+            //first player will always be X
+            App.state.setters.setPlayerX(true);
+
+            //setting style for the table
+            els.table.style.border = "1px solid black";
+            els.table.style.backgroundColor = "black";
+            els.table.style.borderRadius = "0.2rem";
+            els.table.style.padding = "0.2rem";
+            els.table.style.margin = "auto";
+
+            const td = document.getElementsByTagName("td");
             //setting style and event listeners for each td 
             for (let i = 0; i < td.length; i++) {
+                td[i].innerHTML = "";
+                td[i].style.border = "1px solid black";
+                td[i].style.borderRadius = "0.2rem";
+                td[i].style.padding = "2rem";
+                td[i].style.backgroundColor = "white";
                 function userClick() {
                     App.controllers.setElementText(td[i]);
                     td[i].removeEventListener("click", userClick);
@@ -59,32 +76,6 @@ const App = {
                     td[i].removeEventListener("click", userClick);
                 }
             }
-        },
-        setTable() {
-            const els = App.elements;
-
-            //first player will always be X
-            App.state.setters.setPlayerX(true);
-
-            //setting style for the table
-            els.table.style.border = "1px solid black";
-            els.table.style.backgroundColor = "black";
-            els.table.style.borderRadius = "0.2rem";
-            els.table.style.padding = "0.2rem";
-            els.table.style.margin = "auto";
-
-            const td = document.getElementsByTagName("td");
-            //setting style and event listeners for each td 
-            for (let i = 0; i < td.length; i++) {
-                td[i].innerHTML = "";
-                td[i].style.border = "1px solid black";
-                td[i].style.borderRadius = "0.2rem";
-                td[i].style.padding = "2rem";
-                td[i].style.backgroundColor = "white";
-
-            }
-
-            this.setEventHandlers(td);
 
             els.gameResult.innerHTML = "";
             els.gameResult.style.fontSize = "2rem";
