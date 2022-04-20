@@ -49,11 +49,6 @@ const App = {
             const td = document.getElementsByTagName("td");
             //setting style and event listeners for each td 
             for (let i = 0; i < td.length; i++) {
-                td[i].innerHTML = "";
-                td[i].style.border = "1px solid black";
-                td[i].style.borderRadius = "0.2rem";
-                td[i].style.padding = "2rem";
-                td[i].style.backgroundColor = "white";
                 function userClick() {
                     App.controllers.setElementText(td[i]);
                     td[i].removeEventListener("click", userClick);
@@ -63,7 +58,12 @@ const App = {
                         disableTable();
                     }
                 }
-                td[i].addEventListener("click", userClick.bind(this, td[i]));
+                td[i].innerHTML = "";
+                td[i].style.border = "1px solid black";
+                td[i].style.borderRadius = "0.2rem";
+                td[i].style.padding = "2rem";
+                td[i].style.backgroundColor = "white";
+                td[i].addEventListener("click", userClick);
 
             }
             //why is this not working????
