@@ -1,13 +1,10 @@
 const App = {
     //initializes the app
     init() {
-
         this.controllers.createGameGrid();
-
-        console.log("end");
     },
 
-    //static database (where we keep everything)
+    //static database (global variables, getters and setters)
     state: {
         playerX: true,
         winner: "",
@@ -34,19 +31,10 @@ const App = {
         }
 
     },
-    //functions that can be called
+    //functions
     controllers: {
-        setTable() {
+        setEventHandlers(td) {
             const els = App.elements;
-            App.state.setters.setPlayerX(true);
-            //setting style for the table
-            els.table.style.border = "1px solid black";
-            els.table.style.backgroundColor = "black";
-            els.table.style.borderRadius = "0.2rem";
-            els.table.style.padding = "0.2rem";
-            els.table.style.margin = "auto";
-
-            const td = document.getElementsByTagName("td");
             //setting style and event listeners for each td 
             for (let i = 0; i < td.length; i++) {
                 function userClick() {
@@ -56,15 +44,9 @@ const App = {
                     if (App.controllers.checkWinner()) {
                         els.gameResult.innerHTML = "Player " + App.state.getters.getWinner() + " won!";
                         disableTable();
-                        disableTable();
                     }
                 }
-                td[i].innerHTML = "";
-                td[i].style.border = "1px solid black";
-                td[i].style.borderRadius = "0.2rem";
-                td[i].style.padding = "2rem";
-                td[i].style.backgroundColor = "white";
-                td[i].addEventListener("click", userClick);
+                td[i].addEventListener("click", userClick.bind(this, td[i]));
 
             }
 
@@ -77,7 +59,32 @@ const App = {
                     td[i].removeEventListener("click", userClick);
                 }
             }
+        },
+        setTable() {
+            const els = App.elements;
 
+            //first player will always be X
+            App.state.setters.setPlayerX(true);
+
+            //setting style for the table
+            els.table.style.border = "1px solid black";
+            els.table.style.backgroundColor = "black";
+            els.table.style.borderRadius = "0.2rem";
+            els.table.style.padding = "0.2rem";
+            els.table.style.margin = "auto";
+
+            const td = document.getElementsByTagName("td");
+            //setting style and event listeners for each td 
+            for (let i = 0; i < td.length; i++) {
+                td[i].innerHTML = "";
+                td[i].style.border = "1px solid black";
+                td[i].style.borderRadius = "0.2rem";
+                td[i].style.padding = "2rem";
+                td[i].style.backgroundColor = "white";
+
+            }
+
+            this.setEventHandlers(td);
 
             els.gameResult.innerHTML = "";
             els.gameResult.style.fontSize = "2rem";
@@ -144,7 +151,6 @@ const App = {
         },
         createGameGrid() {
             const els = App.elements;
-            console.log("Start createElements");
 
             els.root.style.display = "flex";
             els.root.style.flexDirection = "column";
@@ -182,7 +188,6 @@ const App = {
 
             this.setTable();
 
-            console.log("End createElements");
         }
     },
     //every reference of our elements
