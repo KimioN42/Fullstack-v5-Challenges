@@ -38,6 +38,7 @@ const App = {
     controllers: {
         setTable() {
             const els = App.elements;
+            //first player will always be true
             App.state.setters.setPlayerX(true);
             //setting style for the table
             els.table.style.border = "1px solid black";
@@ -55,7 +56,6 @@ const App = {
                     //if the winner was found, it will display on the gameResult p and disable table
                     if (App.controllers.checkWinner()) {
                         els.gameResult.innerHTML = "Player " + App.state.getters.getWinner() + " won!";
-                        disableTable();
                         disableTable();
                     }
                 }
