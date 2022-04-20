@@ -66,7 +66,7 @@ const App = {
                 td[i].addEventListener("click", userClick.bind(this, td[i]));
 
             }
-
+            //why is this not working????
             function disableTable() {
                 for (let i = 0; i < td.length; i++) {
                     console.log("disabling table element ", i);
