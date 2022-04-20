@@ -1,39 +1,64 @@
-//variables for each element in document
-const outerDiv = document.createElement('div');
-const contentDiv = document.createElement('div');
-const titleDiv = document.createElement('div');
-const descriptionDiv = document.createElement('div');
-const imgDiv = document.createElement('div');
-const img = document.createElement('img');
+const App = {
+    //initializes the app
+    init() {
+        console.log("init");
+        //everything else will be here
 
-//outer div that encapsulates other divs
-outerDiv.style.border = '1px solid black';
-outerDiv.style.width = 'fit-content';
-outerDiv.style.padding = '5px';
+        this.controllers.setBorder();
+        this.controllers.createElements();
 
-//title div
-titleDiv.innerHTML = 'Ingate Fullstack v5';
-titleDiv.style.textAlign = 'center';
-titleDiv.style.fontWeight = 'bold';
 
-//description/subtitle div
-descriptionDiv.innerHTML = 'The best course ever';
 
-//imgDiv
-imgDiv.style.display = 'flex';
-imgDiv.style.justifyContent = 'center';
+        console.log("end");
+    },
 
-//img
-img.style.width = '32px';
-img.src = 'https://raw.githubusercontent.com/ingate-educa/fullstack-assets/main/v5/Logo-short.png';
+    //static database (where we keep everything)
+    state: {},
+    //functions that can be called
+    controllers: {
+        setBorder() {
+            const root = App.elements.root;
+            root.style.border = "1px solid red";
+            root.innerHTML = "Hello world";
+        },
+        createElements() {
+            const els = App.elements;
+            console.log("Start createElements");
+            console.log(els);
+            els.td11.innerHTML = "td11";
+            els.td12.innerHTML = "td12";
+            els.td21.innerHTML = "td21";
+            els.td22.innerHTML = "td22";
 
-//putting the elements together (bottom-up)
-imgDiv.appendChild(img);
-contentDiv.appendChild(descriptionDiv);
-contentDiv.appendChild(imgDiv);
-outerDiv.appendChild(titleDiv);
-outerDiv.appendChild(contentDiv);
+            els.table.border = 1;
 
-document.body.appendChild(outerDiv);
+            els.tr1.appendChild(els.td11);
+            els.tr1.appendChild(els.td12);
+            els.tr2.appendChild(els.td21);
+            els.tr2.appendChild(els.td22);
 
-console.log(outerDiv);
+            els.table.appendChild(els.tr1);
+            els.table.appendChild(els.tr2);
+
+            els.root.appendChild(els.table);
+
+            console.log("End createElements");
+        }
+    },
+    //every reference of our elements
+    elements: {
+        root: document.getElementById("app"),
+        table: document.createElement("table"),
+        tr1: document.createElement("tr"),
+        tr2: document.createElement("tr"),
+        td11: document.createElement("td"),
+        td12: document.createElement("td"),
+        td21: document.createElement("td"),
+        td22: document.createElement("td"),
+    }
+};
+
+
+App.init();
+
+console.log(App);
