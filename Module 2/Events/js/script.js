@@ -51,7 +51,7 @@ const App = {
             for (let i = 0; i < td.length; i++) {
                 function userClick() {
                     App.controllers.setElementText(td[i]);
-                    td[i].removeEventListener("click", userClick);
+                    td[i].onclick = null;
                     //if the winner was found, it will display on the gameResult p and disable table
                     if (App.controllers.checkWinner()) {
                         els.gameResult.innerHTML = "Player " + App.state.getters.getWinner() + " won!";
@@ -63,17 +63,17 @@ const App = {
                 td[i].style.borderRadius = "0.2rem";
                 td[i].style.padding = "2rem";
                 td[i].style.backgroundColor = "white";
-                td[i].addEventListener("click", userClick);
+                td[i].onclick = (evt) => userClick();
 
             }
             //why is this not working????
             function disableTable() {
                 for (let i = 0; i < td.length; i++) {
-                    console.log("disabling table element ", i);
-                    if (td[i].innerHTML === "") {
-                        td[i].innerHTML = "!!!";
+
+                    if (td[i].style.backgroundColor !== "green") {
+                        td[i].style.backgroundColor = "red";
                     }
-                    td[i].removeEventListener("click", userClick);
+                    td[i].onclick = null;
                 }
             }
 
