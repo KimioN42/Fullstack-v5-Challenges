@@ -8,12 +8,16 @@ const App = {
     state: {
         playerX: true,
         winner: "",
+        rounds: 0,
         getters: {
             isPlayerX() {
                 return App.state.playerX;
             },
             getWinner() {
                 return App.state.winner;
+            },
+            getRounds() {
+                return App.state.rounds;
             }
         },
         setters: {
@@ -22,6 +26,12 @@ const App = {
             },
             setWinner(winner) {
                 App.state.winner = winner;
+            },
+            incrementRound() {
+                App.state.rounds++;
+            },
+            resetRound() {
+                App.state.rounds = 0;
             }
         },
         inverters: {
@@ -33,11 +43,36 @@ const App = {
     },
     //functions
     controllers: {
+        createModal() {
+            const els = App.elements;
+
+            //creating close button for modal
+            els.closeBtn.type = "button";
+            els.closeBtn.value = "Close";
+
+
+            els.modalContent.appendChild(els.gameResult);
+            els.modal.appendChild(els.modalContent);
+            els.modal.appendChild(els.closeBtn);
+            els.modalContainer.appendChild(els.modal);
+
+        },
+        setModalStyle() {
+            const els = App.elements;
+
+
+
+
+
+
+
+        },
         setTable() {
             const els = App.elements;
 
-            //first player will always be X
+            //first player will always be X, rounds will start at 0
             App.state.setters.setPlayerX(true);
+            App.state.setters.resetRound();
 
             //setting style for the table
             els.table.style.border = "1px solid black";
@@ -50,12 +85,15 @@ const App = {
             //setting style and event listeners for each td 
             for (let i = 0; i < td.length; i++) {
                 function userClick() {
+                    App.state.setters.incrementRound();
                     App.controllers.setElementText(td[i]);
                     td[i].onclick = null;
                     //if the winner was found, it will display on the gameResult p and disable table
                     if (App.controllers.checkWinner()) {
                         els.gameResult.innerHTML = "Player " + App.state.getters.getWinner() + " won!";
                         disableTable();
+                    } else if (App.state.getters.getRounds() === 9) {
+                        els.gameResult.innerHTML = "It's a tie!";
                     }
                 }
                 td[i].innerHTML = "";
@@ -199,7 +237,11 @@ const App = {
         td23: document.createElement("td"),
         td31: document.createElement("td"),
         td32: document.createElement("td"),
-        td33: document.createElement("td")
+        td33: document.createElement("td"),
+        modalContainer: document.createElement("div"),
+        modal: document.createElement("div"),
+        modalContent: document.createElement("div"),
+        closeBtn: document.createElement("input")
     }
 };
 
