@@ -43,6 +43,21 @@ const App = {
     },
     //functions
     controllers: {
+        createTdsTrs() {
+            const els = App.elements;
+
+            for (let index = 0; index < 3; index++) {
+                const tr = document.createElement("tr");
+                els.trs.push(tr);
+
+                for (let j = 0; j < 3; j++) {
+                    const td = document.createElement("td");
+                    els.tds.push(td);
+                    tr.appendChild(td);
+                }
+                els.table.appendChild(tr);
+            }
+=======
         createModal() {
             const els = App.elements;
 
@@ -81,37 +96,36 @@ const App = {
             els.table.style.padding = "0.2rem";
             els.table.style.margin = "auto";
 
+            function userClick(evt) {
+                const td = evt.target;
+                App.controllers.setElementText(td);
+                //if the winner was found, it will display on the gameResult p and disable table
+                if (App.controllers.checkWinner()) {
+                    els.gameResult.innerHTML = "Player " + App.state.getters.getWinner() + " won!";
+                    disableTable();
+                }
+            }
+
             const td = document.getElementsByTagName("td");
             //setting style and event listeners for each td 
             for (let i = 0; i < td.length; i++) {
-                function userClick() {
-                    App.state.setters.incrementRound();
-                    App.controllers.setElementText(td[i]);
-                    td[i].onclick = null;
-                    //if the winner was found, it will display on the gameResult p and disable table
-                    if (App.controllers.checkWinner()) {
-                        els.gameResult.innerHTML = "Player " + App.state.getters.getWinner() + " won!";
-                        disableTable();
-                    } else if (App.state.getters.getRounds() === 9) {
-                        els.gameResult.innerHTML = "It's a tie!";
-                    }
-                }
                 td[i].innerHTML = "";
                 td[i].style.border = "1px solid black";
                 td[i].style.borderRadius = "0.2rem";
                 td[i].style.padding = "2rem";
                 td[i].style.backgroundColor = "white";
-                td[i].onclick = (evt) => userClick();
+
+                td[i].addEventListener("click", userClick, { once: true });
 
             }
-            //why is this not working????
             function disableTable() {
+                const td = document.getElementsByTagName("td");
                 for (let i = 0; i < td.length; i++) {
-
-                    if (td[i].style.backgroundColor !== "green") {
-                        td[i].style.backgroundColor = "red";
+                    // console.log("disabling table element ", i);
+                    if (td[i].innerHTML === "") {
+                        td[i].innerHTML = "!!!";
                     }
-                    td[i].onclick = null;
+                    td[i].removeEventListener("click", userClick);
                 }
             }
 
@@ -229,6 +243,8 @@ const App = {
         tr1: document.createElement("tr"),
         tr2: document.createElement("tr"),
         tr3: document.createElement("tr"),
+        trs: [],
+        tds: [],
         td11: document.createElement("td"),
         td12: document.createElement("td"),
         td13: document.createElement("td"),
