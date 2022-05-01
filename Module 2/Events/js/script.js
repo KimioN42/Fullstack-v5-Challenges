@@ -57,7 +57,7 @@ const App = {
                 }
                 els.table.appendChild(tr);
             }
-=======
+        },
         createModal() {
             const els = App.elements;
 
