@@ -23,6 +23,12 @@ const App = {
             about.href = "#";
             store.href = "#";
 
+            this.setStyle({ about, store }, {
+                textDecoration: "none",
+                margin: "0 0.5rem",
+                color: App.state.fontColor
+            })
+
             //appending elements to upper layer
             els.left.appendChild(about);
             els.left.appendChild(store);
@@ -31,6 +37,7 @@ const App = {
         },
         createHeaderRight() {
             const els = App.elements.header;
+
 
             //creating elements
             const gmail = document.createElement("a");
@@ -50,6 +57,11 @@ const App = {
             dotMenu.href = "#";
             profilePic.href = "#";
 
+            gmail.style.textDecoration = "none";
+            images.style.textDecoration = "none";
+            dotMenu.style.textDecoration = "none";
+            profilePic.style.textDecoration = "none";
+
             //appending elements to upper layer
             els.right.appendChild(gmail);
             els.right.appendChild(images);
@@ -59,7 +71,7 @@ const App = {
         },
         createLayout() {
             const els = App.elements;
-
+            const states = App.state;
 
 
 
@@ -75,14 +87,20 @@ const App = {
             this.createHeaderRight();
 
 
-
+            this.setStyle(els.root, {
+                backgroundColor: states.backgroundColor,
+                color: states.fontColor,
+            });
 
             els.root.appendChild(els.header.container);
         },
-        setStyle(el, style) {
-            for (let key in style) {
-                console.log("[]...", key, style[key]);
-                el.style[key] = style[key];
+        setStyle(elements, style) {
+            for (let element in elements) {
+                console.log("element: ", element);
+                for (let key in style) {
+                    console.log(key, style[key]);
+                    element.style[key] = style[key];
+                }
             }
         },
     },
