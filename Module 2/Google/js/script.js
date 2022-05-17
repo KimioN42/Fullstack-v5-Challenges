@@ -329,7 +329,7 @@ const App = {
             el.innerHTML = str;
             el.style.textDecoration = "none";
             el.style.color = App.state.fontColor;
-            el.style.margin = "0 0.5rem";
+            el.style.margin = "0 0.5rem ";
             this.setUnderlineOnHover(el);
         }
     },
